@@ -1,0 +1,488 @@
+/* ===============================
+   GLOBAL
+================================ */
+* {
+  box-sizing: border-box;
+  font-family: "Times New Roman", serif;
+}
+
+body {
+  margin: 5px;
+  background: #cfcfcf;
+}
+
+/* ===============================
+   LAYOUT
+================================ */
+.container {
+  display: flex;
+  height: 100vh;
+}
+
+/* ===============================
+   FORM PANEL (KIRI)
+================================ */
+.form-panel {
+  width: 360px;
+  background: #f9fafc;
+  padding: 18px 16px;
+  border-right: 1px solid #d0d4da;
+  overflow-y: auto;
+}
+
+/* ===== JUDUL FORM ===== */
+.form-panel h3 {
+  margin: 0 0 14px;
+  font-size: 18px;
+  font-weight: bold;
+  border-bottom: 2px solid #ddd;
+  padding-bottom: 6px;
+}
+
+.form-panel h4 {
+  margin-top: 18px;
+  margin-bottom: 6px;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+/* ===== LABEL ===== */
+.form-panel label {
+  display: block;
+  margin-top: 14px;
+  font-size: 12.5px;
+  font-weight: 600;
+}
+
+.form-panel small {
+  font-size: 11px;
+  color: #555;
+}
+
+/* ===== INPUT ===== */
+.form-panel input,
+.form-panel select,
+.form-panel textarea {
+  width: 100%;
+  padding: 10px 12px;
+  margin-top: 6px;
+  border-radius: 8px;
+  border: 1.6px solid #cfd4dc;
+  font-size: 14px;
+  background: #ffffff;
+}
+
+.form-panel hr {
+  border: none;
+  border-top: 1px dashed #d1d5db;
+  margin: 20px 0;
+}
+
+/* ===============================
+   BUTTON
+================================ */
+.btn-row {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.btn-row button {
+  flex: 1;
+  padding: 11px;
+  font-size: 14px;
+  font-weight: bold;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  color: #fff;
+  background: #2f55d4;
+}
+
+/* ===============================
+   PREVIEW PANEL
+================================ */
+.preview-panel {
+  flex: 1;
+  padding: 20px;
+  background: #aaa;
+  overflow: auto; /* HILANGKAN SCROLL */
+}
+
+/* ===============================
+   PAGE A4 (KERTAS)
+================================ */
+.page {
+  width: 210mm;
+  min-height: 297mm;
+  background: #ffffff;
+  padding: 10mm 14mm 18mm 14mm; /* HEADER LEBIH NAIK */
+  margin: 10px auto;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+/* ===============================
+   HEADER (AMAN PDF)
+================================ */
+.header-img {
+  display: block;
+  width: 100%;
+  max-height: 200px;
+  object-fit: contain;
+  margin-top: -8mm; /* KUNCI HEADER NAIK */
+  margin-bottom: 6px;
+}
+
+/* ===============================
+   FIELD TEXT
+================================ */
+.field {
+  display: grid;
+  grid-template-columns: 180px 14px auto;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.field.waktu {
+  display: block;
+}
+
+/* ===============================
+   TABLE
+================================ */
+.layanan-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+.layanan-table th,
+.layanan-table td {
+  border: 1px solid #000;
+  padding: 4px;
+  font-size: 14px;
+  line-height: 1.25;
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+
+.layanan-table td {
+  font-size: 10px;
+}
+.layanan-table th {
+  text-align: center;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+/* CENTER hanya kolom NO & STATUS */
+.center-col,
+.layanan-table th.status-center,
+.layanan-table td.status-center {
+  text-align: center;
+  vertical-align: middle;
+  font-weight: bold;
+  font-size: 10px;
+}
+
+/* ===============================
+   TTD
+================================ */
+
+
+.ttd-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  font-size: 14px;
+}
+
+.ttd-col,
+.ttd-center {
+  text-align: center;
+  margin-top: 16px;
+}
+.ttd-center-mengetahui{
+  font-size: 14px;
+  margin-top: 20px;
+  text-align: center;
+}
+.ttd-space {
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.img-ttd {
+  max-width: 140px;
+  max-height: 42px;
+  object-fit: contain;
+}
+
+/* ===============================
+   TANGGAL TTD
+================================ */
+#pCTanggalTTD {
+  font-size: 15.5px;
+  font-weight: normal;
+}
+
+/* ===============================
+   PRINT MODE (FINAL)
+================================ */
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 0;
+  }
+
+  body {
+    background: white;
+    font-size: 12px;
+  }
+
+  .form-panel,
+  .btn-row {
+    display: none !important;
+  }
+
+  .preview-panel {
+    padding: 0;
+    overflow: visible;
+  }
+
+  .page {
+    width: 100%;
+    min-height: auto;
+    padding: 10mm 14mm 18mm 14mm;
+    margin: 0;
+    box-shadow: none;
+  }
+
+  table,
+  tr,
+  .ttd-section {
+    page-break-inside: avoid;
+  }
+}
+
+/* ===============================
+   RESPONSIVE (PREVIEW SAJA)
+================================ */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .form-panel {
+    width: 100%;
+  }
+
+  .preview-panel {
+    padding: 8px;
+  }
+
+  .page {
+    width: 210mm;
+    min-width: 210mm;
+  }
+
+  .btn-row {
+    flex-direction: column;
+  }
+}
+
+
+/* ===== CCTV & PIDS CARD ===== */
+.cctv-card {
+  background: #ffffff;
+  border: 1px solid #dcdfe4;
+  border-radius: 10px;
+  padding: 14px;
+  margin-bottom: 14px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+.cctv-card label {
+  font-weight: 600;
+  margin-top: 8px;
+  display: block;
+}
+
+.cctv-card input,
+.cctv-card select {
+  width: 100%;
+  padding: 8px;
+  margin-top: 4px;
+  border-radius: 6px;
+  border: 1px solid #c9ccd3;
+  font-size: 14px;
+}
+
+/* grid 2 kolom tapi tetap ke bawah */
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 6px;
+}
+
+/* responsive HP */
+@media (max-width: 768px) {
+  .grid-2 {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+/* GRID 2 KOLOM */
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+@media (max-width: 768px) {
+  .grid-2 {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* CCTV CARD */
+.cctv-card {
+  background: #fff;
+  border: 1px solid #dcdfe4;
+  border-radius: 10px;
+  padding: 14px;
+  margin-bottom: 14px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+.cctv-card label {
+  font-weight: 600;
+  margin-top: 8px;
+  display: block;
+}
+
+.cctv-card input,
+.cctv-card select {
+  width: 100%;
+  padding: 8px;
+  margin-top: 4px;
+  border-radius: 6px;
+  border: 1px solid #c9ccd3;
+  font-size: 14px;
+}
+
+.page h4 {
+  margin-top: 14px;
+  margin-bottom: 6px; /* ini kunci utama */
+  font-size: 14px;
+}
+
+.page table.layanan-table {
+  margin-top: 4px;   /* kecil tapi tetap lega */
+  margin-bottom: 10px;
+}
+
+
+/* ===============================
+   LANDSCAPE KHUSUS CCTV & PIDS
+================================ */
+
+.page.landscape {
+  width: 297mm;      /* A4 landscape */
+  min-height: 210mm;
+  padding: 15mm;
+}
+
+/* Saat PRINT */
+@media print {
+  @page {
+    size: A4 portrait;
+  }
+
+  @page :left {
+    size: A4 portrait;
+  }
+
+  @page landscape {
+    size: A4 landscape;
+  }
+
+  .page.landscape {
+    page: landscape;
+  }
+}
+
+
+/* ===== CCTV TABLE STYLE ===== */
+.page.landscape table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: auto; /* ✅ BIAR NGIKUT ISI */
+}
+
+
+.page.landscape th,
+.page.landscape td {
+  border: 1px solid #000;
+  padding: 4px;
+  font-size: 11px;
+}
+
+/* kolom No kecil */
+.page.landscape th.no-col,
+.page.landscape td.no-col {
+  width: 28px;
+  text-align: center;
+}
+
+/* header TD kecil */
+.page.landscape th.td-col {
+  font-size: 10px;
+  padding: 3px;
+  text-align: center;
+}
+
+
+
+
+/* ===== TTD CCTV (BEBAS, BUKAN TABEL) ===== */
+
+.page.landscape {
+  position: relative;
+}
+
+.ttd-bottom {
+  position: absolute;
+  bottom: 20mm;
+  left: 15mm;
+  right: 15mm;
+
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
+  font-size: 11px;
+}
+
+.ttd-item {
+  width: 22%;
+}
+
+.ttd-title {
+  margin-bottom: 55px; /* ruang tanda tangan */
+  font-weight: bold;
+}
+
+.ttd-line {
+  border-bottom: 1px dotted #000;
+  margin-bottom: 6px;
+}
+
+.ttd-nipp {
+  font-size: 10px;
+}

@@ -1,0 +1,881 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Dokumen IT</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body>
+    <div class="container">
+      <!-- ================= FORM KIRI ================= -->
+      <div class="form-panel">
+        <!-- ===== PILIHAN TEMPLATE ===== -->
+        <h3>Pilihan Template</h3>
+        <label>Jenis Dokumen</label>
+        <select id="templateSelect">
+          <option value="">-- Pilih Template --</option>
+          <option value="ba-it">
+            Berita Acara Instalasi & Troubleshooting IT
+          </option>
+          <option value="checklist">Formulir Checklist Kesesuaian</option>
+          <option value="cctv-pids">Pengecekan CCTV & PIDS Kereta</option>
+        </select>
+
+        <hr />
+
+        <!-- ================= TEMPLATE 1 : BA IT ================= -->
+        <div id="template-ba-it" style="display: none">
+          <h3>Permintaan Layanan</h3>
+
+          <label>Nama</label>
+          <input type="text" id="nama" />
+
+          <label>Unit</label>
+          <select id="unit">
+            <option value="">-- Pilih Unit --</option>
+            <option>Stasiun Solo Balapan</option>
+            <option>Stasiun Yogyakarta</option>
+            <option>Stasiun Purwosari</option>
+          </select>
+
+          <label>Telepon / Toka / Email</label>
+          <input type="text" id="kontak" />
+
+          <label>Waktu Pengerjaan</label>
+          <small>Tanggal Mulai</small>
+          <input type="date" id="tglMulai" />
+
+          <small>Jam Mulai</small>
+          <input type="time" id="jamMulai" />
+
+          <small>Tanggal Selesai</small>
+          <input type="date" id="tglSelesai" />
+
+          <small>Jam Selesai</small>
+          <input type="time" id="jamSelesai" />
+
+          <hr />
+
+          <h4>Hasil Penanganan</h4>
+
+          <label>Kategori Layanan</label>
+          <select id="kategoriLayanan">
+            <option value="">-- Pilih --</option>
+            <option value="troubleshooting">Troubleshooting</option>
+            <option value="instalasi">Instalasi</option>
+          </select>
+
+          <label>Jenis Layanan</label>
+          <select id="jenisLayanan">
+            <option value="">-- Pilih kategori dulu --</option>
+          </select>
+
+          <label>Detail Pekerjaan</label>
+          <input type="text" id="detailPekerjaan" />
+
+          <label>Status</label>
+          <select id="statusLayanan">
+            <option value="">-- Pilih --</option>
+            <option value="√">√ Selesai</option>
+            <option value="X">X Gagal</option>
+          </select>
+
+          <label>Keterangan</label>
+          <input type="text" id="keterangan" />
+
+          <div class="btn-row">
+            <button type="button" id="addRow">➕ Tambah Baris</button>
+            <button type="button" id="removeRow">🗑️ Hapus Baris</button>
+          </div>
+
+          <hr />
+
+          <label>Selanjutnya</label>
+          <select id="keputusan">
+            <option value="">-- Pilih --</option>
+            <option value="Diterima">Diterima</option>
+            <option value="Ditolak">Ditolak</option>
+          </select>
+
+          <hr />
+
+          <h4>Penandatangan</h4>
+
+          <label>Nama Staf IT</label>
+          <input type="text" id="namaStafIT" />
+
+          <label>NIPP Staf IT</label>
+          <input type="text" id="nippStafIT" />
+
+          <label>TTD Staf IT</label>
+          <canvas
+            id="canvasStafIT"
+            width="300"
+            height="120"
+            class="canvas-ttd"
+          ></canvas>
+
+          <div class="btn-row">
+            <button type="button" id="clearStafIT">Hapus TTD</button>
+            <button type="button" id="lockStafIT">🔒 Kunci TTD</button>
+          </div>
+
+          <hr />
+
+          <label>Nama User</label>
+          <input type="text" id="namaUser" />
+
+          <label>NIPP User</label>
+          <input type="text" id="nippUser" />
+
+          <label>TTD User</label>
+          <canvas
+            id="canvasUser"
+            width="300"
+            height="120"
+            class="canvas-ttd"
+          ></canvas>
+
+          <div class="btn-row">
+            <button type="button" id="clearUser">Hapus TTD</button>
+            <button type="button" id="lockUser">🔒 Kunci TTD</button>
+          </div>
+
+          <hr />
+
+          <label>TTD Mengetahui (Atasan)</label>
+          <canvas
+            id="canvasMengetahui"
+            width="300"
+            height="120"
+            class="canvas-ttd"
+          ></canvas>
+
+          <div class="btn-row">
+            <button type="button" id="clearMengetahui">Hapus TTD</button>
+            <button type="button" id="lockMengetahui">🔒 Kunci TTD</button>
+          </div>
+
+          <hr />
+
+          <div class="btn-row">
+            <button type="button" onclick="printDokumen()">🖨️ Print</button>
+            <button type="button" onclick="downloadPDF()">
+              ⬇️ Download PDF
+            </button>
+          </div>
+        </div>
+
+        <!-- ================= TEMPLATE 2 : CHECKLIST ================= -->
+        <div id="template-checklist" style="display: none">
+          <h3>Formulir Checklist Kesesuaian</h3>
+
+          <h4>Informasi Umum</h4>
+
+          <label>Tanggal Pemeriksaan</label>
+          <input type="date" id="cTanggal" />
+
+          <label>Nama Petugas</label>
+          <input type="text" id="cPetugas" />
+
+          <label>Unit / Lokasi Komputer</label>
+          <select id="cUnit">
+            <option value="">-- Pilih Unit --</option>
+            <option>Stasiun Solo Balapan</option>
+            <option>Stasiun Solo Jebres</option>
+            <option>Stasiun Purwosari</option>
+            <option>Stasiun Yogyakarta</option>
+          </select>
+
+          <label>Nama Pengguna Komputer</label>
+          <input type="text" id="cPengguna" />
+
+          <label>Kode Inventaris</label>
+          <input type="text" id="cInventaris" />
+
+          <label>Merk / Tipe PC / Laptop</label>
+          <input type="text" id="cMerk" />
+
+          <label>Nomor Seri</label>
+          <input type="text" id="cSerial" />
+
+          <hr />
+          <h4>Pemeriksaan Software</h4>
+
+          <label>Aplikasi / Sistem</label>
+          <select id="cApp">
+            <option value="">-- Pilih --</option>
+            <option value="os">Sistem Operasi (Windows/Linux/macOS)</option>
+            <option>Microsoft Office</option>
+            <option>Antivirus</option>
+            <option>Check Software/Lisensi (Legal)</option>
+            <option>Password Web Browser</option>
+            <option>Web filtering</option>
+            <option value="other">Lainnya</option>
+          </select>
+
+          <!-- Input manual jika pilih Lainnya -->
+          <div id="cAppOtherWrap" style="display: none; margin-top: 6px">
+            <label>Nama Aplikasi / Sistem</label>
+            <input
+              type="text"
+              id="cAppOther"
+              placeholder="Ketik aplikasi / sistem"
+            />
+          </div>
+
+          <label>Status</label>
+
+          <!-- Status Normal -->
+          <div id="statusNormal" style="margin-top: 4px">
+            <input type="checkbox" id="cStatus" />
+            <strong>Sesuai / Terpasang</strong>
+          </div>
+
+          <!-- Status Sistem Operasi -->
+          <div id="statusOS" style="margin-top: 6px; display: none; gap: 14px">
+            <label><input type="checkbox" id="osW" /> W</label>
+            <label><input type="checkbox" id="osL" /> L</label>
+            <label><input type="checkbox" id="osM" /> M</label>
+          </div>
+
+          <label>Serial Number</label>
+          <input type="text" id="cSerialApp" />
+
+          <label>Versi</label>
+          <input type="text" id="cVersi" />
+
+          <label>Keterangan</label>
+          <input type="text" id="cKet" />
+
+          <div class="btn-row">
+            <button type="button" id="addChecklistRow">➕ Tambah Baris</button>
+            <button type="button" id="removeChecklistRow">
+              🗑️ Hapus Baris
+            </button>
+          </div>
+
+          <hr />
+          <h4>Hardware, Jaringan & Keamanan</h4>
+
+          <label>Item</label>
+          <select id="cItem">
+            <option value="">-- Pilih Item --</option>
+            <option>Akses Internet/Intranet</option>
+            <option>Akses ke Aplikasi Internal KAI</option>
+            <option>Password Login Aktif & Aman</option>
+            <option>Auto Lock Aktif</option>
+            <option>User Device</option>
+            <option>Sinkronisasi Waktu</option>
+            <option>Port USB</option>
+            <option>Label Asset</option>
+          </select>
+
+          <label>Status</label>
+          <div style="margin-top: 4px">
+            <input type="checkbox" id="cItemStatus" /> <strong>Ya</strong>
+          </div>
+
+          <label>Keterangan</label>
+          <input type="text" id="cItemKet" />
+
+          <div class="btn-row">
+            <button type="button" id="addItemRow">➕ Tambah Baris</button>
+            <button type="button" id="removeItemRow">🗑️ Hapus Baris</button>
+          </div>
+
+          <hr />
+          <h4>Catatan Tambahan / Rekomendasi</h4>
+
+          <label>Catatan</label>
+          <textarea
+            id="cCatatan"
+            rows="4"
+            placeholder="Tuliskan catatan tambahan atau rekomendasi dari hasil pemeriksaan..."
+            style="
+              width: 100%;
+              padding: 8px;
+              font-size: 14px;
+              border-radius: 6px;
+              border: 1px solid #c9ccd3;
+            "
+          ></textarea>
+
+          <hr />
+          <h4>Tanda Tangan</h4>
+          <label>Nama Petugas Pemeriksaan</label>
+          <input type="text" id="cNamaPetugas" />
+
+          <label>NIPP Petugas Pemeriksaan</label>
+          <input type="text" id="cNippPetugas" />
+
+          <label>TTD Pelaksana Pemeriksaan</label>
+          <canvas
+            id="canvasChecklistPetugas"
+            width="300"
+            height="120"
+            class="canvas-ttd"
+          ></canvas>
+
+          <div class="btn-row">
+            <button type="button" id="clearChecklistPetugas">Hapus TTD</button>
+            <button type="button" id="lockChecklistPetugas">
+              🔒 Kunci TTD
+            </button>
+          </div>
+
+          <hr />
+
+          <label>Nama Pengguna Perangkat</label>
+          <input type="text" id="cNamaPengguna" />
+
+          <label>NIPP Pengguna Perangkat</label>
+          <input type="text" id="cNippPengguna" />
+
+          <label>TTD Pengguna Perangkat</label>
+          <canvas
+            id="canvasChecklistPengguna"
+            width="300"
+            height="120"
+            class="canvas-ttd"
+          ></canvas>
+
+          <div class="btn-row">
+            <button type="button" id="clearChecklistPengguna">Hapus TTD</button>
+            <button type="button" id="lockChecklistPengguna">
+              🔒 Kunci TTD
+            </button>
+          </div>
+
+          <hr />
+
+          <div class="btn-row">
+            <button type="button" onclick="printChecklist()">🖨️ Print</button>
+            <button type="button" onclick="downloadChecklistPDF()">
+              ⬇️ Download PDF
+            </button>
+          </div>
+        </div>
+
+        <!-- ================= TEMPLATE 3 : CCTV & PIDS KERETA ================= -->
+        <!-- ================= TEMPLATE 3 : CCTV & PIDS KERETA ================= -->
+        <div id="template-cctv-pids" style="display: none">
+          <h3>Pengecekan CCTV & PIDS Kereta</h3>
+
+          <div class="grid-2">
+            <div>
+              <label>Tanggal Pemeriksaan</label>
+              <input type="date" id="pTanggal" />
+            </div>
+
+            <div>
+              <label>Nama / Rangkaian Kereta</label>
+              <input
+                type="text"
+                id="pKereta"
+                placeholder="Contoh: KA Mataram"
+              />
+            </div>
+          </div>
+
+          <hr />
+
+          <h4>Data Pengecekan</h4>
+
+          <!-- CARD LIST -->
+          <div id="cctvPidsList">
+            <div class="cctv-card">
+
+              <label>Lambung Kereta</label>
+              <input type="text" placeholder="Contoh: K1-01" />
+            
+              <!-- CCTV -->
+              <h5>CCTV</h5>
+              <div class="grid-2">
+                <div>
+                  <label>TD Kecil</label>
+                  <select>
+                    <option value="">-- Pilih --</option>
+                    <option>Normal</option>
+                    <option>Mati / Rusak</option>
+                  </select>
+                </div>
+            
+                <div>
+                  <label>TD Besar</label>
+                  <select>
+                    <option value="">-- Pilih --</option>
+                    <option>Normal</option>
+                    <option>Mati / Rusak</option>
+                  </select>
+                </div>
+              </div>
+            
+              <!-- PIDS INDOOR -->
+              <h5>PIDS Indoor</h5>
+              <div class="grid-2">
+                <div>
+                  <label>TD Kecil</label>
+                  <select>
+                    <option value="">-- Pilih --</option>
+                    <option>Normal</option>
+                    <option>Mati / Rusak</option>
+                  </select>
+                </div>
+            
+                <div>
+                  <label>TD Besar</label>
+                  <select>
+                    <option value="">-- Pilih --</option>
+                    <option>Normal</option>
+                    <option>Mati / Rusak</option>
+                  </select>
+                </div>
+              </div>
+            
+              <!-- PIDS OUTDOOR -->
+              <h5>PIDS Outdoor</h5>
+              <div class="grid-2">
+                <div>
+                  <label>TD A</label>
+                  <select>
+                    <option value="">-- Pilih --</option>
+                    <option>Normal</option>
+                    <option>Mati / Rusak</option>
+                  </select>
+                </div>
+            
+                <div>
+                  <label>TD D</label>
+                  <select>
+                    <option value="">-- Pilih --</option>
+                    <option>Normal</option>
+                    <option>Mati / Rusak</option>
+                  </select>
+                </div>
+              </div>
+            
+              <!-- DVR -->
+              <label>Kondisi DVR</label>
+              <input type="text" placeholder="Contoh: HDD Record" />
+            
+              <label>IP DVR</label>
+              <input type="text" placeholder="192.168.1.10" />
+            
+              <label>Patch Control PIDS</label>
+              <input type="text" />
+            
+              <label>Keterangan</label>
+              <input type="text" />
+            
+            </div>
+            
+          </div>
+
+          <div class="btn-row">
+            <button type="button" id="addCctvCard">➕ Tambah Lambung</button>
+            <button type="button" id="removeCctvCard">🗑️ Hapus Lambung</button>
+          </div>
+
+          <div class="btn-row" style="margin-top: 12px">
+            <button type="button" class="btn-print" onclick="printCctvPids()">
+              🖨️ Print
+            </button>
+          
+            <button type="button" class="btn-pdf" onclick="downloadCctvPidsPDF()">
+              📄 Download PDF
+            </button>
+          </div>
+          
+        </div>
+      </div>
+
+      <!-- ================= PREVIEW KANAN ================= -->
+      <div class="preview-panel">
+        <!-- ===== PAGE BA IT ===== -->
+        <div class="page" id="preview-ba-it" style="display: none">
+          <img src="header.png" class="header-img" />
+
+          <strong>Permintaan Layanan dari :</strong>
+
+          <div class="field">
+            <span class="label">Nama</span><span class="colon">:</span
+            ><span id="pNama">-</span>
+          </div>
+
+          <div class="field">
+            <span class="label">Unit</span><span class="colon">:</span
+            ><span id="pUnit">-</span>
+          </div>
+
+          <div class="field">
+            <span class="label">Telepon</span><span class="colon">:</span
+            ><span id="pKontak">-</span>
+          </div>
+
+          <div class="field">
+            <span class="label">Waktu</span><span class="colon">:</span>
+          </div>
+
+          <div class="field waktu">
+            <div class="value" id="pWaktu">-</div>
+          </div>
+
+          <br />
+
+          <strong>Hasil Penanganan Instalasi dan/atau Troubleshooting :</strong>
+
+          <table class="layanan-table">
+            <table class="layanan-table layanan-center">
+              <colgroup>
+                <col style="width: 5%" />
+                <!-- No -->
+                <col style="width: 15%" />
+                <!-- Kategori -->
+                <col style="width: 16%" />
+                <!-- Jenis -->
+                <col style="width: 29%" />
+                <!-- Detail (LEBIH LEBAR) -->
+                <col style="width: 7%" />
+                <!-- Status -->
+                <col style="width: 29%" />
+                <!-- Keterangan (LEBIH LEBAR) -->
+              </colgroup>
+
+              <thead>
+                <tr>
+                  <th>No</th>
+                  <th>Kategori</th>
+                  <th>Jenis Pekerjaan</th>
+                  <th>Detail Pekerjaan</th>
+                  <th class="status-center">Status</th>
+                  <th>Keterangan</th>
+                </tr>
+              </thead>
+
+              <tbody id="layananBody"></tbody>
+            </table>
+          </table>
+
+          <div style="margin-top: 6px; font-size: 13px">
+            * √ : Selesai;&nbsp;&nbsp; X : Gagal
+          </div>
+
+          <p style="margin-top: 10px; text-align: justify; font-size: 14px">
+            Menyatakan bahwa, penanganan instalasi dan/atau troubleshooting
+            telah diperiksa dan dilakukan oleh pihak Sistem Informasi dan pihak
+            <strong id="pUnitPernyataan">-</strong>
+            dengan hasil seperti dijelaskan di atas.
+          </p>
+
+          <div class="keputusan">
+            <span id="pKeputusan">Selanjutnya, -</span>
+          </div>
+
+          <!-- ===== TTD ===== -->
+          <div class="ttd-section">
+            <div class="ttd-row">
+              <div class="ttd-col">
+                <strong>Staf IT</strong>
+                <div class="ttd-space">
+                  <img id="imgTtdStafIT" class="img-ttd" />
+                </div>
+                <span id="pNamaStafIT">-</span><br />
+                NIPP. <span id="pNippStafIT">-</span>
+              </div>
+
+              <div class="ttd-col">
+                <strong>User</strong>
+                <div class="ttd-space">
+                  <img id="imgTtdUser" class="img-ttd" />
+                </div>
+                <span id="pNamaUser">-</span><br />
+                NIPP. <span id="pNippUser">-</span>
+              </div>
+            </div>
+
+            <div class="ttd-center-mengetahui">
+              <strong>Mengetahui,</strong>
+              <div class="ttd-space">
+                <img id="imgTtdMengetahui" class="img-ttd" />
+              </div>
+              <strong>Winaris Ahmad</strong><br />
+              NIPP. 55867
+            </div>
+          </div>
+        </div>
+
+        <!-- ===== PAGE CHECKLIST ===== -->
+        <div class="page" id="preview-checklist" style="display: none">
+          <img src="header2.png" class="header-img" />
+
+          <strong>Informasi Umum</strong>
+
+          <div class="field">
+            <span class="label">Tanggal Pemeriksaan</span>
+            <span class="colon">:</span>
+            <span id="pCTanggal">-</span>
+          </div>
+
+          <div class="field">
+            <span class="label">Nama Petugas</span>
+            <span class="colon">:</span>
+            <span id="pCPetugas">-</span>
+          </div>
+
+          <div class="field">
+            <span class="label">Unit / Lokasi Komputer</span>
+            <span class="colon">:</span>
+            <span id="pCUnit">-</span>
+          </div>
+
+          <div class="field">
+            <span class="label">Nama Pengguna Komputer</span>
+            <span class="colon">:</span>
+            <span id="pCPengguna">-</span>
+          </div>
+
+          <div class="field">
+            <span class="label">Kode Inventaris</span>
+            <span class="colon">:</span>
+            <span id="pCInventaris">-</span>
+          </div>
+
+          <div class="field">
+            <span class="label">Merk / Tipe PC / Laptop</span>
+            <span class="colon">:</span>
+            <span id="pCMerk">-</span>
+          </div>
+
+          <div class="field">
+            <span class="label">Nomor Seri</span>
+            <span class="colon">:</span>
+            <span id="pCSerial">-</span>
+          </div>
+
+          <h4>Pemeriksaan Software</h4>
+
+          <table class="layanan-table checklist-table" style="margin-top: 6px">
+            <colgroup>
+              <col style="width: 5%" />
+              <!-- No -->
+              <col style="width: 30%" />
+              <!-- Aplikasi / Sistem -->
+              <col style="width: 8%" />
+              <!-- Status -->
+              <col style="width: 17%" />
+              <!-- Serial Number -->
+              <col style="width: 10%" />
+              <!-- Versi -->
+              <col style="width: 30%" />
+              <!-- Keterangan -->
+            </colgroup>
+
+            <thead>
+              <tr>
+                <th>No</th>
+                <th>Aplikasi / Sistem</th>
+                <th>Status</th>
+                <th>Serial Number</th>
+                <th>Versi</th>
+                <th>Keterangan</th>
+              </tr>
+            </thead>
+
+            <tbody id="checklistBody"></tbody>
+          </table>
+
+          <h4>Hardware, Jaringan & Keamanan</h4>
+
+          <table class="layanan-table checklist-table" style="margin-top: 6px">
+            <colgroup>
+              <col style="width: 5%" />
+              <!-- No -->
+              <col style="width: 45%" />
+              <!-- Item -->
+              <col style="width: 10%" />
+              <!-- Status -->
+              <col style="width: 40%" />
+              <!-- Keterangan -->
+            </colgroup>
+
+            <thead>
+              <tr>
+                <th>No</th>
+                <th>Item</th>
+                <th>Status</th>
+                <th>Keterangan</th>
+              </tr>
+            </thead>
+
+            <tbody id="itemChecklistBody"></tbody>
+          </table>
+
+          <br />
+          <strong>Catatan Tambahan / Rekomendasi :</strong>
+
+          <p
+            id="pCatatanChecklist"
+            style="margin-top: 6px; text-align: justify"
+          >
+            -
+          </p>
+          <br /><br />
+
+          <div style="text-align: right; font-size: 12px">
+            <span id="pCTanggalTTD">-</span>
+          </div>
+
+          <div class="ttd-section">
+            <div class="ttd-row">
+              <div class="ttd-col">
+                <strong>Pelaksana Pemeriksaan</strong>
+                <div class="ttd-space">
+                  <img id="imgChecklistPetugas" class="img-ttd" />
+                </div>
+                <span id="pCNamaPetugas">-</span><br />
+                NIPP. <span id="pCNippPetugas">-</span>
+              </div>
+
+              <div class="ttd-col">
+                <strong>Pengguna Perangkat</strong>
+                <div class="ttd-space">
+                  <img id="imgChecklistPengguna" class="img-ttd" />
+                </div>
+                <span id="pCNamaPengguna">-</span><br />
+                NIPP. <span id="pCNippPengguna">-</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- ===== PAGE CCTV & PIDS ===== -->
+        <div class="page landscape" id="preview-cctv-pids">
+
+
+  <h3 style="text-align:center; margin-bottom:2px">
+    PENGECEKAN KONDISI CCTV & PIDS ON TRAIN
+  </h3>
+  
+  <h3 style="text-align:center; margin-top:0; font-weight:bold">
+    SISTEM INFORMASI DAOP 6 YOGYAKARTA
+  </h3>
+  
+  
+
+  <div class="field">
+    <span class="label">Tanggal Pemeriksaan</span>
+    <span class="colon">:</span>
+    <span id="pPTanggal">-</span>
+  </div>
+
+  <div class="field">
+    <span class="label">Nama / Rangkaian Kereta</span>
+    <span class="colon">:</span>
+    <span id="pPKereta">-</span>
+  </div>
+
+  <hr />
+
+  <table class="layanan-table checklist-table">
+
+    <!-- ===== KUNCI LEBAR KOLOM (WAJIB) ===== -->
+    <colgroup>
+      <col style="width:30px">    <!-- No -->
+      <col style="width:110px">   <!-- No Lambung Kereta -->
+  
+      <col style="width:45px">    <!-- CCTV TD Kecil -->
+      <col style="width:45px">    <!-- CCTV TD Besar -->
+  
+      <col style="width:45px">    <!-- PIDS Indoor TD Kecil -->
+      <col style="width:45px">    <!-- PIDS Indoor TD Besar -->
+  
+      <col style="width:45px">    <!-- PIDS Outdoor TD A -->
+      <col style="width:45px">    <!-- PIDS Outdoor TD D -->
+  
+      <col style="width:95px">    <!-- Kondisi DVR -->
+      <col style="width:100px">   <!-- IP DVR -->
+      <col style="width:120px">   <!-- Patch Control PIDS -->
+      <col style="width:140px">   <!-- Keterangan -->
+    </colgroup>
+  
+    <thead>
+      <tr>
+        <th rowspan="2" class="no-col">No</th>
+        <th rowspan="2">No Lambung Kereta</th>
+  
+        <th colspan="2">CAMERA CCTV</th>
+        <th colspan="2">PIDS INDOOR</th>
+        <th colspan="2">PIDS OUTDOOR</th>
+  
+        <th rowspan="2">Kondisi DVR</th>
+        <th rowspan="2">IP DVR</th>
+        <th rowspan="2">Patch Control PIDS</th>
+        <th rowspan="2">Keterangan</th>
+      </tr>
+  
+      <tr>
+        <th class="td-col">TD Kecil</th>
+        <th class="td-col">TD Besar</th>
+  
+        <th class="td-col">TD Kecil</th>
+        <th class="td-col">TD Besar</th>
+  
+        <th class="td-col">TD A</th>
+        <th class="td-col">TD D</th>
+      </tr>
+    </thead>
+  
+    <tbody id="pCctvPidsBody">
+      <!-- diisi lewat JS -->
+    </tbody>
+  
+  </table>
+  
+
+  <div style="margin-top:8px; font-size:12px">
+    <strong>Keterangan:</strong><br>
+    X : Mati / Rusak<br>
+    ✓ : Baik / Normal
+  </div>
+
+    <!-- ===== TANDA TANGAN ===== -->
+<!-- ===== TTD BAWAH (BEBAS, BUKAN TABEL) ===== -->
+<div class="ttd-bottom">
+  <div class="ttd-item">
+    <div class="ttd-title">POLSUSKA</div>
+    <div class="ttd-line"></div>
+    <div class="ttd-nipp">NIPP.</div>
+  </div>
+
+  <div class="ttd-item">
+    <div class="ttd-title">TKA / SARANA</div>
+    <div class="ttd-line"></div>
+    <div class="ttd-nipp">NIPP.</div>
+  </div>
+
+  <div class="ttd-item">
+    <div class="ttd-title">SOT / ANGPEN</div>
+    <div class="ttd-line"></div>
+    <div class="ttd-nipp">NIPP.</div>
+  </div>
+
+  <div class="ttd-item">
+    <div class="ttd-title">PETUGAS IT</div>
+    <div class="ttd-line"></div>
+    <div class="ttd-nipp">NIPP.</div>
+  </div>
+</div>
+
+  
+  
+</div>
+
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+
+  </body>
+</html>
