@@ -255,18 +255,17 @@ setupTTD("canvasMengetahui", "imgTtdMengetahui", "clearMengetahui", "lockMengeta
    PRINT
 ================================ */
 function printDokumen() {
-  function printDokumen() {
-    if (!guardBA()) {
-      alert("Pilih template Berita Acara IT terlebih dahulu");
-      return;
-    }
-  
-    previewBA.style.display = "block";
-    previewChecklist.style.display = "none";
-  
-    window.print();
+  if (!guardBA()) {
+    alert("Pilih template Berita Acara IT terlebih dahulu");
+    return;
   }
-  
+
+  // tampilkan preview yang benar
+  previewBA.style.display = "block";
+  previewChecklist.style.display = "none";
+  previewCctv.style.display = "none";
+
+  window.print();
 }
 
 /* ===============================
@@ -999,3 +998,18 @@ function printCctvPids() {
 
   window.print();
 }
+
+
+document.addEventListener("DOMContentLoaded", () => {
+  // sembunyikan semua preview saat halaman pertama dibuka
+  previewBA.style.display = "none";
+  previewChecklist.style.display = "none";
+  previewCctv.style.display = "none";
+
+  // sembunyikan semua form template juga
+  templateBA.style.display = "none";
+  templateChecklist.style.display = "none";
+  templateCctv.style.display = "none";
+
+  activeTemplate = null;
+});
