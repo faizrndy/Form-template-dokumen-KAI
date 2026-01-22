@@ -277,9 +277,7 @@ function downloadPDF() {
     return;
   }
 
-  if (!el("imgTtdStafIT").src) return alert("TTD Staf IT belum diisi");
-  if (!el("imgTtdUser").src) return alert("TTD User belum diisi");
-  if (!el("imgTtdMengetahui").src) return alert("TTD Mengetahui belum diisi");
+  // ❌ VALIDASI TTD DIHAPUS (PDF BOLEH TANPA TTD)
 
   const element = document.querySelector("#preview-ba-it .page");
 
@@ -1013,3 +1011,57 @@ document.addEventListener("DOMContentLoaded", () => {
 
   activeTemplate = null;
 });
+
+
+window.downloadPDF = function () {
+  if (activeTemplate !== "ba-it") {
+    alert("Pilih template Berita Acara IT terlebih dahulu");
+    return;
+  }
+
+  const element = document.querySelector("#preview-ba-it");
+
+  if (!element) {
+    alert("Preview dokumen tidak ditemukan");
+    return;
+  }
+
+  html2pdf().set({
+    margin: 0,
+    filename: "Berita_Acara_IT.pdf",
+    image: { type: "jpeg", quality: 0.98 },
+    html2canvas: { scale: 2, useCORS: true, scrollY: 0 },
+    jsPDF: { unit: "mm", format: "a4", orientation: "portrait" }
+  }).from(element).save();
+};
+
+
+window.downloadCctvPidsPDF = function () {
+  if (activeTemplate !== "cctv-pids") {
+    alert("Pilih template CCTV & PIDS terlebih dahulu");
+    return;
+  }
+
+  const element = document.getElementById("preview-cctv-pids");
+
+  if (!element) {
+    alert("Preview CCTV & PIDS tidak ditemukan");
+    return;
+  }
+
+  html2pdf().set({
+    margin: 5,
+    filename: "Pengecekan_CCTV_PIDS_Kereta.pdf",
+    image: { type: "jpeg", quality: 0.98 },
+    html2canvas: {
+      scale: 2,
+      useCORS: true,
+      scrollY: 0
+    },
+    jsPDF: {
+      unit: "mm",
+      format: "a4",
+      orientation: "landscape" // ⚠️ WAJIB LANDSCAPE
+    }
+  }).from(element).save();
+};
