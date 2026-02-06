@@ -530,6 +530,30 @@
             <button type="button" id="removeCctvCard">🗑️ Hapus tabel</button>
           </div>
 
+          <hr />
+<h4>Penandatangan</h4>
+
+<label>Nama POLSUSKA</label>
+<input type="text" id="namaPolsuska" />
+<label>NIPP POLSUSKA</label>
+<input type="text" id="nippPolsuska" />
+
+<label>Nama TKA / SARANA</label>
+<input type="text" id="namaTka" />
+<label>NIPP TKA / SARANA</label>
+<input type="text" id="nippTka" />
+
+<label>Nama SOT / ANGPEN</label>
+<input type="text" id="namaSot" />
+<label>NIPP SOT / ANGPEN</label>
+<input type="text" id="nippSot" />
+
+<label>Nama Petugas IT</label>
+<input type="text" id="namaIt" />
+<label>NIPP Petugas IT</label>
+<input type="text" id="nippIt" />
+
+
           <div class="btn-row" style="margin-top: 12px">
             <button type="button" class="btn-print" onclick="printCctvPids()">
               🖨️ Print
@@ -893,33 +917,39 @@
 
     <!-- ===== TANDA TANGAN ===== -->
 <!-- ===== TTD BAWAH (BEBAS, BUKAN TABEL) ===== -->
+
 <div class="ttd-bottom">
+
   <div class="ttd-item">
     <div class="ttd-title">POLSUSKA</div>
+    <div class="ttd-name" id="ttdPolsuskaNama">-</div>
     <div class="ttd-line"></div>
-    <div class="ttd-nipp">NIPP.</div>
+    <div class="ttd-nipp">NIPP. <span id="ttdPolsuskaNipp">-</span></div>
   </div>
 
   <div class="ttd-item">
     <div class="ttd-title">TKA / SARANA</div>
+    <div class="ttd-name" id="ttdTkaNama">-</div>
     <div class="ttd-line"></div>
-    <div class="ttd-nipp">NIPP.</div>
+    <div class="ttd-nipp">NIPP. <span id="ttdTkaNipp">-</span></div>
   </div>
 
   <div class="ttd-item">
     <div class="ttd-title">SOT / ANGPEN</div>
+    <div class="ttd-name" id="ttdSotNama">-</div>
     <div class="ttd-line"></div>
-    <div class="ttd-nipp">NIPP.</div>
+    <div class="ttd-nipp">NIPP. <span id="ttdSotNipp">-</span></div>
   </div>
 
   <div class="ttd-item">
     <div class="ttd-title">PETUGAS IT</div>
+    <div class="ttd-name" id="ttdItNama">-</div>
     <div class="ttd-line"></div>
-    <div class="ttd-nipp">NIPP.</div>
+    <div class="ttd-nipp">NIPP. <span id="ttdItNipp">-</span></div>
   </div>
+
 </div>
 
-  
   
 </div>
 

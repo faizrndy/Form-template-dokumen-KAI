@@ -1065,3 +1065,70 @@ window.downloadCctvPidsPDF = function () {
     }
   }).from(element).save();
 };
+
+
+function bindTTD(inputNama, inputNipp, outNama, outNipp, lineId, nippWrapId) {
+  const namaInput = el(inputNama);
+  const nippInput = el(inputNipp);
+
+  const namaOut = el(outNama);
+  const nippOut = el(outNipp);
+  const line = el(lineId);
+  const nippWrap = el(nippWrapId);
+
+  namaInput?.addEventListener("input", e => {
+    const val = e.target.value.trim();
+
+    if (val) {
+      namaOut.innerText = val;
+      line.classList.remove("hidden");
+      nippWrap.classList.remove("hidden");
+    } else {
+      namaOut.innerText = "";
+      line.classList.add("hidden");
+      nippWrap.classList.add("hidden");
+    }
+  });
+
+  nippInput?.addEventListener("input", e => {
+    nippOut.innerText = e.target.value.trim();
+  });
+}
+
+
+
+bindTTD(
+  "namaPolsuska",
+  "nippPolsuska",
+  "ttdPolsuskaNama",
+  "ttdPolsuskaNipp",
+  "linePolsuska",
+  "nippPolsuska"
+);
+
+bindTTD(
+  "namaTka",
+  "nippTka",
+  "ttdTkaNama",
+  "ttdTkaNipp",
+  "lineTka",
+  "nippTka"
+);
+
+bindTTD(
+  "namaSot",
+  "nippSot",
+  "ttdSotNama",
+  "ttdSotNipp",
+  "lineSot",
+  "nippSot"
+);
+
+bindTTD(
+  "namaIt",
+  "nippIt",
+  "ttdItNama",
+  "ttdItNipp",
+  "lineIt",
+  "nippIt"
+);

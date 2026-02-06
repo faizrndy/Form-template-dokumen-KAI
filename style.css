@@ -486,3 +486,55 @@ body {
 .ttd-nipp {
   font-size: 10px;
 }
+
+
+.ttd-bottom {
+  margin-top: 30mm;
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
+  font-size: 11px;
+}
+
+.ttd-item {
+  width: 22%;
+}
+
+.ttd-name {
+  min-height: 16px;
+  font-weight: bold;
+  margin-bottom: 6px;
+}
+
+.hidden {
+  display: none;
+}
+
+
+/* ===============================
+   PERBESAR FONT NAMA & NIPP
+   PREVIEW CCTV & PIDS
+================================ */
+
+/* Nama penandatangan */
+.page.landscape .ttd-name {
+  font-size: 13.5px;     /* sebelumnya kecil */
+  font-weight: bold;
+  line-height: 1.3;
+}
+
+/* NIPP */
+.page.landscape .ttd-nipp {
+  font-size: 12.5px;
+  margin-top: 2px;
+}
+
+/* Judul (POLSUSKA, TKA, dll) tetap rapi */
+.page.landscape .ttd-title {
+  font-size: 12px;
+}
+
+/* Garis tanda tangan */
+.page.landscape .ttd-line {
+  margin-bottom: 6px;
+}
